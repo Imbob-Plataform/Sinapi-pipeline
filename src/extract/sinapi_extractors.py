@@ -18,7 +18,6 @@ class HttpSinapi:
       else:
          return cls(data['url'], data['nomeApi'])
 
-
    def __str__(self):
       return f'Url: {self._url} e o nome da url: {self._nomeApi}'
 
@@ -31,7 +30,3 @@ class HttpSinapi:
       except requests.exceptions.RequestException as e:
          print(f"Erro na requisição HTTP 'get': {e}")
          return None
-
-
-obj = HttpSinapi.from_json('api.json')
-print(obj.get_http_sinapi())
