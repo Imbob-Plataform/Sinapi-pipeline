@@ -8,9 +8,14 @@ class HttpSinapi:
 
    @classmethod
    def from_json(cls, path):
-      with open(path, 'r') as file:
-         data = json.load(file)
-      return cls(data['url'], data['nomeApi'])
+      try:
+         with open(path, 'r') as file:
+            data = json.load(file)
+      except FileNotFoundError:
+         print("Arquivo Json não encontrado.")
+      else:
+         return cls(data['url'], data['nomeApi'])
+
 
    def __str__(self):
       return f'Url: {self._url} e o nome da url: {self._nomeApi}'
