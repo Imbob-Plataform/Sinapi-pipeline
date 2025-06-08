@@ -5,6 +5,7 @@ class HttpSinapi:
    def __init__(self, url, nomeApi) -> None:
       self._url = url
       self._nomeApi = nomeApi
+      self._data = None
 
    @classmethod
    def from_json(cls, path):
@@ -13,6 +14,7 @@ class HttpSinapi:
             data = json.load(file)
       except FileNotFoundError:
          print("Arquivo Json não encontrado.")
+         return None
       else:
          return cls(data['url'], data['nomeApi'])
 
@@ -24,11 +26,12 @@ class HttpSinapi:
       try:
          response = requests.get(self._url)
          response.raise_for_status()
-         print(f"Status code da api: {response.status_code}")
+         self._data = response.json()
+         return self._data
       except requests.exceptions.RequestException as e:
          print(f"Erro na requisição HTTP 'get': {e}")
-      else:
-         print(f"Baixando api: {self._nomeApi}")
+         return None
+
 
 obj = HttpSinapi.from_json('api.json')
-obj.get_http_sinapi()
+print(obj.get_http_sinapi())
