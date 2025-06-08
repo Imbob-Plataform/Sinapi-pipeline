@@ -1,5 +1,5 @@
 import json
-from requests import request, exceptions
+import requests
 
 class HttpSinapi:
    def __init__(self, url, nomeApi) -> None:
@@ -15,9 +15,15 @@ class HttpSinapi:
    def __str__(self):
       return f'Url: {self._url} e o nome da url: {self._nomeApi}'
 
-   def getHttpSinapi(self):
-      pass
-
+   def get_http_sinapi(self):
+      try:
+         response = requests.get(self._url)
+         response.raise_for_status()
+         print(f"Status code da api: {response.status_code}")
+      except requests.exceptions.RequestException as e:
+         print(f"Erro na requisição HTTP 'get': {e}")
+      else:
+         print(f"Baixando api: {self._nomeApi}")
 
 obj = HttpSinapi.from_json('api.json')
-print(obj)
+obj.get_http_sinapi()
