@@ -21,8 +21,14 @@ class PipelineSinapi:
       if data_process is None or data_process.empty:
          print('falha na transformação da api')
          return
-      valid_data = df_to_pydantic_list(data_process)
-      save_sinapi_data(valid_data)
+
+      try:
+         valid_data = df_to_pydantic_list(data_process)
+         save_sinapi_data(valid_data)
+      except Exception as e:
+         raise ValueError("Não consegui validar os dados.")
+      else:
+         print('dados processados')
 
 if __name__ == '__main__':
    pipeline = PipelineSinapi()
