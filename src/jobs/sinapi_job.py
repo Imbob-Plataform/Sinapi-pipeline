@@ -1,5 +1,8 @@
 from src.extract.sinapi_extractors import HttpSinapi
 from src.transform.sinapi_transform import TransformSinapi
+from src.utils.df_to_pydantic import df_to_pydantic_list
+from src.repository.sinapi_repository import save_sinapi_data
+
 import pandas as pd
 class PipelineSinapi:
    def __init__(self) -> None:
@@ -18,8 +21,8 @@ class PipelineSinapi:
       if data_process is None or data_process.empty:
          print('falha na transformação da api')
          return
-      else:
-         print(data_process)
+      valid_data = df_to_pydantic_list(data_process)
+      save_sinapi_data(valid_data)
 
 if __name__ == '__main__':
    pipeline = PipelineSinapi()
