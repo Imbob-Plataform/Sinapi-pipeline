@@ -2,7 +2,7 @@ import pandas as pd
 
 class TransformSinapi:
    def __init__(self, data) -> None:
-      self._data = data
+      self._data = pd.DataFrame(data)
       self._df = None
 
    def transform(self):
@@ -18,9 +18,8 @@ class TransformSinapi:
 
 
    def update_header_dataframe(self):
-      dataframe = pd.DataFrame(self._data)
-      dataframe.columns = dataframe.iloc[0]
-      self._df = dataframe[1:].reset_index(drop=True)
+      self._data.columns = self._data.iloc[0]
+      self._df = self._data [1:].reset_index(drop=True)
 
 
    def update_columns_dataframe(self):
