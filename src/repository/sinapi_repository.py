@@ -1,5 +1,5 @@
 # src/repository.py
-from src.db.db_config import SessionLocal
+from src.db.connection import SessionLocal
 from src.models.sinapi_model import SinapiModel
 
 def save_sinapi_data(data_list):

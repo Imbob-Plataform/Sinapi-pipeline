@@ -2,6 +2,7 @@ from src.extract.sinapi_extractors import HttpSinapi
 from src.transform.sinapi_transform import TransformSinapi
 from src.utils.df_to_pydantic import df_to_pydantic_list
 from src.repository.sinapi_repository import save_sinapi_data
+from src.db.init_db import init_db
 
 import pandas as pd
 class PipelineSinapi:
@@ -31,5 +32,6 @@ class PipelineSinapi:
          print('dados processados')
 
 if __name__ == '__main__':
+   init_db()   
    pipeline = PipelineSinapi()
    pipeline.run_pipeline()
